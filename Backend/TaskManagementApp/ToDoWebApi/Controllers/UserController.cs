@@ -37,14 +37,14 @@ namespace ToDoWebApiApp.Controllers
             {
                 return NotFound(new { Message = "User Not Found!!" });
             }
-            if (!PasswordHasher.VarifyPassword(userObj.Password, user.Password))
+            if (!PasswordHasher.VarifyPassword(userObj.Password!, user.Password!))
             {
                 return BadRequest(new
                 {
                     Message = "Password is Incorrect!!"
                 });
             }
-            if (user.IsActive.Equals("INACTIVE"))
+            if (user.IsActive!.Equals("INACTIVE"))
             {
                 return BadRequest(new {Message="User is Inactive.!!"});
             }
@@ -67,7 +67,7 @@ namespace ToDoWebApiApp.Controllers
             }
 
             // Check UserName
-            if (await CheckUserNameExistAsync(registerObj.UserName))
+            if (await CheckUserNameExistAsync(registerObj.UserName!))
             {
                 return BadRequest(new
                 {
@@ -75,7 +75,7 @@ namespace ToDoWebApiApp.Controllers
                 });
             }
             // Check Email
-            if (await CheckEmailExistAsync(registerObj.Email))
+            if (await CheckEmailExistAsync(registerObj.Email!))
             {
                 return BadRequest(new
                 {
@@ -83,7 +83,7 @@ namespace ToDoWebApiApp.Controllers
                 });
             }
             // Check Password Strenth
-            var pass = CheckPasswordStrenth(registerObj.Password);
+            var pass = CheckPasswordStrenth(registerObj.Password!);
             if (!string.IsNullOrEmpty(pass))
             {
                 return BadRequest(new
@@ -94,7 +94,7 @@ namespace ToDoWebApiApp.Controllers
 
             //registerObj.Role = registerObj.ToUpper();
             var password=registerObj.Password;
-            registerObj.Password = PasswordHasher.HashPassword(registerObj.Password);
+            registerObj.Password = PasswordHasher.HashPassword(registerObj.Password!);
 
 
             var user = new User
@@ -114,7 +114,7 @@ namespace ToDoWebApiApp.Controllers
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("saukarmanjunath@gmail.com"));
             email.To.Add(MailboxAddress.Parse(user.Email));
-            email.Subject = $"Welcome, {user.Name} in TaskMangement App";
+            email.Subject = $"Welcome, {user.Name} to TaskMangement App";
 
             var emailBody = new StringBuilder();
             emailBody.AppendLine("<html>");
@@ -128,7 +128,7 @@ namespace ToDoWebApiApp.Controllers
             emailBody.AppendLine("<li>Task status updates</li>");
             emailBody.AppendLine("</ul>");
             emailBody.AppendLine($"<p>For your reference your :  User Name id {user.UserName}</p>");
-            emailBody.AppendLine($"<p>Your Password is: {password}</p>");
+            //emailBody.AppendLine($"<p>Your Password is: {password}</p>");
             emailBody.AppendLine("<p>Feel free to explore the app and let us know if you have any questions or feedback.</p>");
             emailBody.AppendLine("<p>Enjoy your task management journey!</p>");
             emailBody.AppendLine("<hr />");
@@ -156,7 +156,7 @@ namespace ToDoWebApiApp.Controllers
         [HttpPut("UpdateUser/{id:Guid}")]
         public async Task<IActionResult> UpdateUser(Guid id,[FromBody] RegisterDto updateObj)
         {
-            User user = await _userRepository.GetAll().FirstOrDefaultAsync(u=>u.Id==id);
+            var user = await _userRepository.GetAll().FirstOrDefaultAsync(u=>u.Id==id);
             if (user == null)
             {
                 return BadRequest(new { message = "User Not Found.!!" });
@@ -164,10 +164,10 @@ namespace ToDoWebApiApp.Controllers
             user.Name = (updateObj.Name.IsNullOrEmpty() ? user.Name : updateObj.Name);
             user.Email = (updateObj.Email.IsNullOrEmpty() ? user.Email : updateObj.Email);
             user.UserName = (updateObj.UserName.IsNullOrEmpty() ? user.UserName : updateObj.UserName);
-            user.Role = (updateObj.Role.IsNullOrEmpty() ? user.Role : updateObj.Role.ToUpper());
-            user.Password = (updateObj.Password.IsNullOrEmpty() ? user.Password : PasswordHasher.HashPassword(updateObj.Password));
-            user.IsActive = (updateObj.IsActive.IsNullOrEmpty() ? user.IsActive : updateObj.IsActive.ToUpper());
-            user.ProfileImage = (updateObj.ProfileImage.IsNullOrEmpty() ? user.ProfileImage : updateObj.ProfileImage);
+            user.Role = (updateObj.Role.IsNullOrEmpty() ? user.Role : updateObj?.Role?.ToUpper());
+            user.Password = (updateObj!.Password.IsNullOrEmpty() ? user.Password : PasswordHasher.HashPassword(updateObj.Password!));
+            user.IsActive = (updateObj.IsActive.IsNullOrEmpty() ? user.IsActive : updateObj?.IsActive?.ToUpper());
+            user.ProfileImage = (updateObj!.ProfileImage.IsNullOrEmpty() ? user.ProfileImage : updateObj.ProfileImage);
             _userRepository.Update(user);
 
             return Ok(new {Message = "User Updated Successfully.!!" });
@@ -221,7 +221,7 @@ namespace ToDoWebApiApp.Controllers
             // Update password in the database and handle success/error 
 
             // Example logic to update password 
-            user.Password = PasswordHasher.HashPassword(forgotPasswordObj.NewPassword);
+            user.Password = PasswordHasher.HashPassword(forgotPasswordObj.NewPassword!);
             _userRepository.Update(user);
 
             return Ok(new { Message = "Password Reset successful" });

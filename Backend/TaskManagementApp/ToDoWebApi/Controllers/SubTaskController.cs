@@ -28,7 +28,7 @@ namespace ToDoAPI.Controllers
         [HttpGet("GetSubTaskById/{id:Guid}")]
         public async Task<IActionResult> GetSubTaskById(Guid id)
         {
-            SubTask subtask = await _subtaskRepo.GetAll().FirstOrDefaultAsync(st => st.Id == id);
+            var subtask = await _subtaskRepo.GetAll().FirstOrDefaultAsync(st => st.Id == id);
             if (subtask == null)
             {
                 return NotFound(new { Message = "SubTask Not Found.!!" });
@@ -47,7 +47,7 @@ namespace ToDoAPI.Controllers
             {
                 Name = subtask.Name,
                 Description = subtask.Description,
-                Status = subtask.Status.ToUpper(),
+                Status = subtask.Status!.ToUpper(),
                 TaskId = id
             };
             _subtaskRepo.Add(_subtask);
@@ -78,7 +78,7 @@ namespace ToDoAPI.Controllers
             Console.WriteLine(subtask.Status);
             _subtask.Name = (subtask.Name.IsNullOrEmpty() ? _subtask.Name : subtask.Name);
             _subtask.Description = (subtask.Description.IsNullOrEmpty() ? _subtask.Description : subtask.Description);
-            _subtask.Status = (subtask.Status.IsNullOrEmpty() ? _subtask.Status : subtask.Status.ToUpper());
+            _subtask.Status = (subtask.Status.IsNullOrEmpty() ? _subtask.Status : subtask.Status!.ToUpper());
             _subtask.TaskId = _subtask.TaskId;
 
             _subtaskRepo.Update(_subtask);

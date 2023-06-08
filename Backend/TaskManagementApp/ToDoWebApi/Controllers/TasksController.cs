@@ -40,14 +40,14 @@ namespace ToDoWebApiApp.Controllers
                 Status = task.Status.ToUpper(),
                 UserId = id
             };
-            _taskRepository.Add(_task);
+             _taskRepository.Add(_task);
             return Ok(new { Message = "Task Added Successfullly!!" });
         }
         [Authorize]
         [HttpGet("GetTaskById/{id:Guid}")]
         public async Task<IActionResult> GetTaskById(Guid id)
         {
-            Tasks task = await _taskRepository.GetAll().FirstOrDefaultAsync(t => t.Id == id);
+            var task = await _taskRepository.GetAll().FirstOrDefaultAsync(t => t.Id == id);
             if (task == null)
             {
                 return NotFound(new { Message = "Task Not Found.!!" });
@@ -58,7 +58,7 @@ namespace ToDoWebApiApp.Controllers
         [HttpDelete("DeleteTask/{id:Guid}")]
         public async Task<IActionResult> DeleteTask(Guid id)
         {
-            Tasks task = await _taskRepository.GetAll().FirstOrDefaultAsync(t => t.Id == id);
+            var task = await _taskRepository.GetAll().FirstOrDefaultAsync(t => t.Id == id);
             if (task == null)
             {
                 return BadRequest(new { Message = "Task Not Found!!" });
