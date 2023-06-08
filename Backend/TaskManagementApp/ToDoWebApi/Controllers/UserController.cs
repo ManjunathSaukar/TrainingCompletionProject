@@ -266,7 +266,7 @@ namespace ToDoWebApiApp.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.UtcNow.AddMinutes(300000),
+                Expires = DateTime.UtcNow.AddMinutes(60),
                 //Expires = DateTime.UtcNow.AddSeconds(30),
                 SigningCredentials = credentials
             };
