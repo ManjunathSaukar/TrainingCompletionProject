@@ -1,0 +1,19 @@
+@import url("../../tasks/delete-task/delete-task.component.css");
+
+h4{
+    text-align:center;
+    color:black;
+}
+dt{
+    font-weight:bold;
+}
+span{
+    font-weight:normal;
+}
+
+td,th{
+    text-align: center;
+}
+table{
+    width:100%;
+}

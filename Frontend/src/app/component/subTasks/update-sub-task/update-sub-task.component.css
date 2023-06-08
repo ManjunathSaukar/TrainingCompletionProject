@@ -1,0 +1,9 @@
+@import url("../add-sub-task/add-sub-task.component.css");
+select {
+    border: none;
+    width: 100%;
+}
+option{
+    border: none;
+    color: green;
+}

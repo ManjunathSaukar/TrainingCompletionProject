@@ -1,0 +1,45 @@
+
+<div class="container-fluid g-0">
+    <app-admin-header (sideNavToggled)="sideNavStatus=$event;"></app-admin-header>
+   
+    <main>
+        <app-admin-sidebar [sideNavStatus]="sideNavStatus"
+        [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-admin-sidebar>
+        <div class="display-area" [ngClass]="{'display-area-shrink':sideNavStatus}">
+            
+            <div class="outer">
+                <div class="container">
+                    <div class="row">
+                        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                            <div class="panel border bg-white">
+                                <div class="panel-heading">
+                                    <h3 class="pt-3 font-weight-bold">Update User Status</h3>
+                                </div>
+                                <div class="panel-body p-3">
+                                    <form [formGroup]="updateUser">
+
+                                        <div class="form-group pt-3">
+                                            <div class="input-field" [class.error]="updateUser.controls['IsActive'].dirty && updateUser.hasError('required','IsActive')">
+                                                <span class="fa fa-user p-2"></span>
+                                                <select formControlName="IsActive">
+                                                    <option [selected]="true">Choose Status</option>
+                                                    <option >ACTIVE</option>
+                                                    <option>INACTIVE</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <small *ngIf="updateUser.controls['IsActive'].dirty && updateUser.hasError('required','IsActive')"
+                                        class="text-danger"> *Status Required</small>
+
+                                        <button type="submit" (click)="onUpdate()" class="btn btn-secondary btn-black mt-4 w-100">Update</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

@@ -1,0 +1,54 @@
+<div class="container-fluid g-0">
+    <app-admin-header (sideNavToggled)="sideNavStatus=$event;"></app-admin-header>
+   
+    <main>
+        <app-admin-sidebar [sideNavStatus]="sideNavStatus"
+        [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-admin-sidebar>
+        <div class="display-area" [ngClass]="{'display-area-shrink':sideNavStatus}">
+            <h4 style="text-align:center;"><b>All Users</b></h4>
+            <hr />
+            <div class="card-footer">  
+                <div class="col-lg-12 table-responsive">  
+                    <table class="table table-striped" style="margin-top: 15px;">  
+                        <thead>  
+                            <tr> 
+                                <th>S.NO.</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>UserName</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>  
+                        </thead>  
+                        <tbody>  
+                            <!-- <tr *ngFor="let user of users;index as i">
+                                <td>{{i+1}}</td> -->
+                            <tr *ngFor="let user of users | paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count}; let i = index"> 
+                                <td>{{(tableSize*(page-1))+i+1}}</td> 
+                                <td>{{user.id}}</td>
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.role}}</td>
+                                <td>{{user.userName}}</td>
+                                <td>{{user.isActive}}</td>
+                                <td><a routerLink="/login/dashboardadmin/updateuser/{{user.id}}" style="color: green;"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                <td><a routerLink="/login/dashboardadmin/deleteuser/{{user.id}}" style="color: Red;"><i class="fa-solid fa-trash"></i></a></td>    
+                            </tr>
+                        </tbody>  
+                    </table>  
+                    <div> 
+                        <pagination-controls 
+                            previousLabel="Prev" 
+                            nextLabel="Next"     
+                            (pageChange)="onTableDataChange($event)" 
+                        > 
+                        </pagination-controls> 
+                    </div> 
+                </div>  
+            </div>  
+        </div>
+    </main>
+</div>

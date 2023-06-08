@@ -1,0 +1,42 @@
+<h4 style="text-align:center;"><b>Details of All Tasks</b></h4>
+<hr />
+<div class="card-footer">  
+    <div class="col-lg-12 table-responsive">  
+        <table class="table table-striped" style="margin-top: 15px;">  
+            <thead>  
+                <tr> 
+                    <th>S.No.</th> 
+                    <th>Task ID</th>  
+                    <th>Task Name</th>  
+                    <th>Task Status</th>
+                    <th>View SubTask</th> 
+                    <th>Add SubTask</th> 
+                    <th>Edit</th>
+                    <th>Delete</th> 
+                </tr>  
+            </thead>  
+            <tbody>  
+                <!-- <tr *ngFor="let task of tasks;index as i">
+                    <td>{{i+1}}</td> -->
+                <tr *ngFor="let task of tasks | paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count}; let i = index"> 
+                    <td>{{(tableSize*(page-1))+i+1}}</td> 
+                    <td>{{task.id}}</td>
+                    <td>{{task.name}}</td>
+                    <td>{{task.status}}</td>
+                    <td><a routerLink="/dashboarduser/task/showallsubsasks/{{task.id}}" style="color: blue;"><i class="fa-solid fa-eye"></i></a></td>
+                    <td><a routerLink="/dashboarduser/task/addsubtask/{{task.id}}" style="color: green; font-weight: bold;"><i class="fa-solid fa-plus"></i></a></td>
+                    <td><a routerLink="/dashboarduser/updatetask/{{task.id}}" style="color: green;"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                    <td><a routerLink="/dashboarduser/deletetask/{{task.id}}" style="color: Red;"><i class="fa-solid fa-trash"></i></a></td>    
+                 </tr>   
+            </tbody>  
+        </table>
+        <div> 
+            <pagination-controls 
+                previousLabel="Prev" 
+                nextLabel="Next"     
+                (pageChange)="onTableDataChange($event)" 
+            > 
+            </pagination-controls> 
+        </div>   
+    </div>  
+</div>   

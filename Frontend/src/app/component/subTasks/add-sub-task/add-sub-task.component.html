@@ -1,0 +1,52 @@
+<div class="container-fluid g-0">
+    <app-header (sideNavToggled)="sideNavStatus=$event;"></app-header>
+    <main>
+        <app-sidebar [sideNavStatus]="sideNavStatus"
+        [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-sidebar>
+        <div class="display-area" [ngClass]="{'display-area-shrink':sideNavStatus}">
+            
+
+            <div class="outer">
+                <div class="container">
+                    <div class="row">
+                        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                            <div class="panel border bg-white">
+                                <div class="panel-heading">
+                                    <h3 class="pt-3 font-weight-bold">Add SubTask Detail</h3>
+                                </div>
+                                <div class="panel-body p-3">
+                                    <form [formGroup]="addSubTask">
+                                        <div class="form-group pt-3">
+                                            <div class="input-field" [class.error]="addSubTask.controls['Name'].dirty && addSubTask.hasError('required','Name')">
+                                                <span class="fa fa-tasks p-2"></span>
+                                                <input formControlName="Name" type="text" placeholder="SubTaskName">
+                                            </div>
+                                        </div>
+                                        <small *ngIf="addSubTask.controls['Name'].dirty && addSubTask.hasError('required','Name')"
+                                        class="text-danger"> *SubTaskName Required</small>
+
+                                        <div class="form-group pt-3">
+                                            <div class="input-field" [class.error]="addSubTask.controls['Description'].dirty && addSubTask.hasError('required','Description')">
+                                                <span class="fa fa-tasks p-2"></span>
+                                                <input formControlName="Description" type="text" placeholder="SubTask Description">
+                                            </div>
+                                        </div>
+                                        <small *ngIf="addSubTask.controls['Description'].dirty && addSubTask.hasError('required','Description')"
+                                        class="text-danger"> *SubTask Description Required</small>
+                                        
+
+                                        <button type="submit" (click)="onAddSubtask()" class="btn btn-secondary btn-black mt-4 w-100">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </main>
+</div>
+

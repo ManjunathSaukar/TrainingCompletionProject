@@ -1,0 +1,10 @@
+@import url('../../../../../assets/css/common.css');
+@import url('../admin-dash-board.component.css');
+select {
+    border: none;
+    width: 100%;
+}
+option{
+    border: none;
+    color: green;
+}

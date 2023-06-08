@@ -1,0 +1,85 @@
+<div class="container-fluid g-0">
+    <app-admin-header *ngIf="isAdmin;else elseStatement" (sideNavToggled)="sideNavStatus=$event;"></app-admin-header>
+    <ng-template #elseStatement>
+        <app-header (sideNavToggled)="sideNavStatus=$event;"></app-header>
+    </ng-template>
+    <main>
+        <app-admin-sidebar *ngIf="isAdmin;else elsePart"  [sideNavStatus]="sideNavStatus"
+        [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-admin-sidebar>
+        <ng-template #elsePart>
+            <app-sidebar [sideNavStatus]="sideNavStatus"
+            [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-sidebar>
+        </ng-template>
+        <div class="display-area" [ngClass]="{'display-area-shrink':sideNavStatus}">
+            
+            <div class="outer">
+                <div class="container">
+                    <div class="row">
+                        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                            <div class="panel border bg-white">
+                                <div class="panel-heading">
+                                    <h3 class="pt-3 font-weight-bold">Update User</h3>
+                                </div>
+                                <div class="panel-body p-3">
+                                    <form [formGroup]="updateUser">
+                                        <div class="form-group pt-3">
+                                            <div class="input-field" [class.error]="updateUser.controls['Name'].dirty && updateUser.hasError('required','Name')">
+                                                <span class="fa fa-user p-2"></span>
+                                                <input formControlName="Name"  [value]="userDetails.name" type="text" placeholder="Enter Name">
+                                            </div>
+                                        </div>
+                                        <small *ngIf="updateUser.controls['Name'].dirty && updateUser.hasError('required','Name')"
+                                        class="text-danger"> *Name is Required</small>
+            
+                                        <div class="form-group pt-3">
+                                            <div class="input-field" [class.error]="updateUser.controls['Email'].dirty && updateUser.hasError('required','Email')">
+                                                <span class="fa fa-envelope p-2"></span>
+                                                <input formControlName="Email" type="text"  [value]="userDetails.email" placeholder="Enter Email">
+                                            </div>
+                                        </div>
+                                        <small *ngIf="updateUser.controls['Email'].dirty && updateUser.hasError('required','Email')"
+                                        class="text-danger"> *Email Required</small>
+            
+                                        <div class="form-group pt-3">
+                                            <div class="input-field" [class.error]="updateUser.controls['UserName'].dirty && updateUser.hasError('required','UserName')">
+                                                <span class="fa fa-user p-2"></span>
+                                                <input formControlName="UserName"  [value]="userDetails.userName" type="text" placeholder="Enter UserName">
+                                            </div>
+                                        </div>
+                                        <small *ngIf="updateUser.controls['UserName'].dirty && updateUser.hasError('required','UserName')"
+                                        class="text-danger"> *UserName Required</small> 
+                                        
+                                        <div class="form-group pt-3">
+                                            <img [src]="imageUrl" width="100px;" height="100px;"/>
+                                            <input type="file" accept="image/*" (change)="onUploadImage($event)"/>
+                                        </div>
+            
+                                        <button type="submit" (click)="onUpdate()" class="btn btn-secondary btn-black mt-4 w-100">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- <div class="container-fluid g-0">
+    <app-admin-header (sideNavToggled)="sideNavStatus=$event;"></app-admin-header>
+   
+    <main>
+        <app-admin-sidebar [sideNavStatus]="sideNavStatus"
+        [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-admin-sidebar>
+        <div class="display-area" [ngClass]="{'display-area-shrink':sideNavStatus}">
+            
+        </div>
+    </main>
+</div> -->
+
+
+
+
+

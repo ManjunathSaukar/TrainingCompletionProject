@@ -1,0 +1,9 @@
+@import url("../delete-task/delete-task.component.css");
+select {
+    border: none;
+    width: 100%;
+}
+option{
+    border: none;
+    color: green;
+}

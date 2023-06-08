@@ -1,0 +1,17 @@
+
+<nav class="navbar navbar-expand navbar-dark bg-dark px-2">
+    <div class="side-nav-button p-2 me-3 text-light" (click)="sideNavtoggled()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <a class="navbar-brand px-4">Task Management App (Admin DashBoard)</a>
+    <div class="navbar-collapse">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <button class="btn btn-outline-light" routerLink="/login/dashboardadmin"><i class="fa-solid fa-house"></i>Home</button>
+            </li>
+        </ul>
+    </div>
+    <div class="logout">
+        <button class="btn btn-outline-light" (click)="signOut()"><i class="fa-solid fa-right-from-bracket"></i>LogOut</button>
+    </div>
+</nav>

@@ -1,0 +1,41 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Login User</h3>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="loginForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="loginForm.controls['userName'].dirty && loginForm.hasError('required','userName')">
+                                    <span class="fa fa-user p-2"></span>
+                                    <input formControlName="userName" type="text" placeholder="UserName">
+                                </div>
+                            </div>
+                            <small *ngIf="loginForm.controls['userName'].dirty && loginForm.hasError('required','userName')" 
+                            class="text-danger"> * UserName is required</small>
+                            <div class="form-group pt-3">
+                                <div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+                                    <span class="fa fa-lock p-2"></span>
+                                    <input formControlName="password" [type]="type" placeholder="Password">
+                                    <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+                                </div>
+                            </div>
+                            <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')"
+                            class="text-danger"> * Password is required</small>
+                            <div class="form-inline fr mt-4">
+                                <a style="color: green;" id="forget" class="font-weight-bold" routerLink="/forgetpassword">Forget Password ?</a>
+                            </div>
+                            <button (click)="onLogin()" type="submit" class="btn btn-secondary btn-black mt-4 w-100">Login</button>
+                            <div class="text-center pt-4 text-muted">Don't have account?
+                                <a style="color: green;" id="forget" routerLink="/signup">Register</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark px-2">
+        <div class="side-nav-button p-2 me-3 text-light" (click)="sideNavtoggled()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <a class="navbar-brand px-4">Task Management App</a>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <button class="btn btn-outline-light" routerLink="/login/dashboarduser"><i class="fa-solid fa-house"></i>Home</button>
+                </li>
+                <li class="nav-item mx-3">
+                    <button class="btn btn-outline-light" routerLink="/dashboarduser/addtask"><i class="fa-solid fa-plus"></i>Add Task</button>
+                </li>
+            </ul>
+        </div>
+        <!-- <form class="d-flex me-5">
+            <input class="form-control me-2" type="search" placeholder="Search Tasks">
+            <button class="btn btn-outline-light" type="submit">Search</button>
+        </form> -->
+        <div class="logout">
+            <button class="btn btn-outline-light" (click)="signOut()"><i class="fa-solid fa-right-from-bracket"></i>LogOut</button>
+        </div>
+    </nav>

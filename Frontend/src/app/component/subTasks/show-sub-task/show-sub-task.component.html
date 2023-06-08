@@ -1,0 +1,65 @@
+<div class="container-fluid g-0">
+    <app-header (sideNavToggled)="sideNavStatus=$event;"></app-header>
+    <main>
+        <app-sidebar [sideNavStatus]="sideNavStatus"
+        [ngClass]="{'app-side-nav-open':sideNavStatus}"></app-sidebar>
+        <div class="display-area" [ngClass]="{'display-area-shrink':sideNavStatus}">
+            
+        
+
+            <h4><b>Details of Task</b></h4>
+            <hr />
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>ID : <span></span>{{task.id}}</dt>
+                    <dt>Name Of Task : <span>{{task.name}}</span></dt>
+                    <dt>Status Of Task: <span>{{task.status}}</span></dt>
+                </dl>
+            </div>
+
+            <h4><b>Details of All Subtasks</b></h4>
+            <hr />
+            <div class="card-footer">  
+                <div class="col-lg-12 table-responsive">  
+                    <table class="table table-striped" style="margin-top: 15px;">  
+                        <thead>  
+                            <tr> 
+                                <th>S.NO.</th>
+                                <th>ID</th>
+                                <th>Name of SubTask</th>
+                                <th>Description of SubTask</th>
+                                <th>Status of SubTask</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>  
+                        </thead>  
+                        <tbody>  
+                            <!-- <tr *ngFor="let subtask of subtasks;index as i">
+                                <td>{{i+1}}</td> -->
+                            <tr *ngFor="let subtask of subtasks | paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count}; let i = index"> 
+                                <td>{{(tableSize*(page-1))+i+1}}</td> 
+                                <td>{{subtask.id}}</td>
+                                <td>{{subtask.name}}</td>
+                                <td>{{subtask.description}}</td>
+                                <td>{{subtask.status}}</td>
+                                <td><a routerLink="/dashboarduser/task/updatesubtask/{{subtask.id}}" style="color: green;"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                <td><a routerLink="/dashboarduser/task/deletesubtask/{{subtask.id}}" style="color: Red;"><i class="fa-solid fa-trash"></i></a></td>    
+                            </tr>
+                        </tbody>  
+                    </table>
+                    <div> 
+                        <pagination-controls 
+                            previousLabel="Prev" 
+                            nextLabel="Next"     
+                            (pageChange)="onTableDataChange($event)" 
+                        > 
+                        </pagination-controls> 
+                    </div>    
+                </div>  
+            </div>  
+            
+        </div>
+    </main>
+</div>
+

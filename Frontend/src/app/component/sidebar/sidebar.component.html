@@ -1,0 +1,30 @@
+
+    <div class="side-nav-content" >
+        <ul class="nav-list" [ngClass]="{'nav-list-open':sideNavStatus}">
+            
+            <div class="profile-image">
+                <img [src]="imageUrl" />
+            </div>
+            
+            <li class="nav-list-item">
+                <i class="fa-solid fa-hands-praying"></i>
+                <span>{{userDetail.name}}</span>
+            </li>
+            <li class="nav-list-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>{{userDetail.email}}</span>
+            </li>
+            <li class="nav-list-item" >
+                <div *ngIf="userStatus; else elseBlock">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <ng-template #elseBlock>
+                    <i class="fas fa-user-alt-slash"></i>
+                </ng-template>
+                <span>{{userDetail.role}}</span>
+            </li>
+            <div class="text-center">
+                <button class="btn btn-outline-light" routerLink="/login/updateprofile/{{userDetail.id}}"><i class="fa-solid fa-pen-to-square"></i>Edit</button>
+            </div>
+        </ul>
+    </div>
